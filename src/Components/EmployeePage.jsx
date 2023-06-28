@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { EmployeePageContainer, UpperContainer, PageName, BottomContainer, InnerBottomContainer, EmployeeList, EmployeeCard as EmployeeCardLabel, EmployeeHeader, EmployeeName, EmployeeNumber, EmployeeDays, EmployeeHours, Modal, Overlay } from './StyledComponents'; // import the relevant styled components
 import { EmployeeCard } from './EmployeeCard';
