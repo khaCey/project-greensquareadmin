@@ -3,9 +3,7 @@ import ClockInOut from "./ClockInOut";
 import { DashboardContainer, DashboardUpperContainer as UpperContainer, DashboardBottomContainer as BottomContainer, PageName, DashboardInnerContainer as Container, } from './StyledComponents';
 import ProfileBanner from "./Profile";
 import Alerts from "./Alerts";
-import Revenue from "./Revenue";
 import ToDoListComponent from "./ToDoListComponent";
-import styled from "styled-components";
 
 const DashboardPage = ({ employeeID, employeeData }) => {
     
