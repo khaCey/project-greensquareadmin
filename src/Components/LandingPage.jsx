@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import styled from 'styled-components';
-import DashboardPage from './DashboardPage';
-import EmployeePage from './EmployeePage';
-import Navigation from './Navigation';
+
+import Loader from './Loader';
+const DashboardPage = React.lazy(() => import('./DashboardPage'));
+const EmployeePage = React.lazy(() => import('./EmployeePage'));
+const Navigation = React.lazy(() => import('./Navigation'));
 
 const Container = styled.div`
   width: 100vw;
@@ -27,8 +29,16 @@ const LandingPage = ({ logoutHandler, employeeData }) => {
     <Container>
       <Navigation selected={selected} setSelected={setSelected} employeeData={employeeData} logoutHandler={logoutHandler}/>
       <PageContainer>
-        {selected === 'dashboard' && <DashboardPage employeeData={employeeData} />}
-        {selected === 'employees' && <EmployeePage employeeData={employeeData} />}
+        {selected === 'dashboard' && 
+            <Suspense fallback={<Loader/>}>
+                <DashboardPage employeeData={employeeData} />
+            </Suspense>    
+        }
+        {selected === 'employees' && 
+            <Suspense fallback={<Loader/>}>
+                <EmployeePage employeeData={employeeData} />
+            </Suspense>
+        }
       </PageContainer>
     </Container>
   );
