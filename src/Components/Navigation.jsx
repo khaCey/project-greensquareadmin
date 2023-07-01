@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { AnimatePresence } from 'framer-motion';
 import {
     Speedometer2,
@@ -159,5 +160,12 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
         </Nav>
     )
 }
+
+Navigation.propTypes = {
+    selected: PropTypes.string.isRequired,
+    setSelected: PropTypes.func.isRequired,
+    employeeData: PropTypes.array.isRequired,
+    logoutHandler: PropTypes.func.isRequired,
+};
 
 export default Navigation;

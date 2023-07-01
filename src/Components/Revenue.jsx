@@ -1,4 +1,3 @@
-import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, BarChart, Bar } from 'recharts';
 import styled from "styled-components";
 
@@ -39,7 +38,7 @@ const Right = styled.div`
   align-items: center;
 `;
 
-const Revenue  = ({ employeeID }) => {
+const Revenue  = () => {
   return (
     <RevenueBanner>
       <Left>

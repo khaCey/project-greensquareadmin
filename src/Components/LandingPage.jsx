@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 import DashboardPage from './DashboardPage';
 import EmployeePage from './EmployeePage';
 import Navigation from './Navigation';
@@ -20,18 +21,22 @@ const PageContainer = styled.div`
   z-index: 0;
 `;
 
-
 const LandingPage = ({ logoutHandler, employeeData }) => {
-  const [selected, setSelected] = useState('dashboard');
-  return (
-    <Container>
-      <Navigation selected={selected} setSelected={setSelected} employeeData={employeeData} logoutHandler={logoutHandler}/>
-      <PageContainer>
-        {selected === 'dashboard' && <DashboardPage employeeData={employeeData} />}
-        {selected === 'employees' && <EmployeePage employeeData={employeeData} />}
-      </PageContainer>
-    </Container>
-  );
+    const [selected, setSelected] = useState('dashboard');
+    return (
+        <Container>
+            <Navigation selected={selected} setSelected={setSelected} employeeData={employeeData} logoutHandler={logoutHandler} />
+            <PageContainer>
+                {selected === 'dashboard' && <DashboardPage employeeData={employeeData} />}
+                {selected === 'employees' && <EmployeePage employeeData={employeeData} />}
+            </PageContainer>
+        </Container>
+    );
+};
+
+LandingPage.propTypes = {
+    logoutHandler: PropTypes.func.isRequired,
+    employeeData: PropTypes.array.isRequired,
 };
 
 export default LandingPage;

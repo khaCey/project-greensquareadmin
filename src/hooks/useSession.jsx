@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 
 export const useSession = (sessionLength, setIsAuthenticated, setEmployeeData, employeeData, isAuthenticated) => {
   const [lastActivity, setLastActivity] = useState(Date.now());
-  
+  const alertString = "You have been logged out!Please Login Again! "
   const startSession = useCallback(() => {
     localStorage.setItem('isAuthenticated', 'true');
     setLastActivity(Date.now());
@@ -31,7 +31,7 @@ export const useSession = (sessionLength, setIsAuthenticated, setEmployeeData, e
   useEffect(() => {
     const intervalId = setInterval(() => {
       if ((Date.now() > lastActivity + sessionLength || !employeeData) && isAuthenticated) {
-        alert("Session timed out.");
+        alert(alertString);
         endSession();
       }
     }, 1000);

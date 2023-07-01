@@ -1,5 +1,5 @@
-import React from 'react';
 import { PersonAdd } from 'react-bootstrap-icons';
+import PropTypes from 'prop-types';
 import { AddContainer, AddButton, AddEmployee } from './StyledComponents'; // import the relevant styled components
 
 export const AddEmployeeButton = ({ showModal }) => {
@@ -11,4 +11,8 @@ export const AddEmployeeButton = ({ showModal }) => {
     </AddContainer>
     
   );
+};
+
+AddEmployeeButton.propTypes = {
+    showModal: PropTypes.func.isRequired,
 };

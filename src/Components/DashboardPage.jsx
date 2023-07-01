@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import ClockInOut from "./ClockInOut";
+import PropTypes from 'prop-types';
 import { DashboardContainer, DashboardUpperContainer as UpperContainer, DashboardBottomContainer as BottomContainer, PageName, DashboardInnerContainer as Container, } from './StyledComponents';
 import ProfileBanner from "./Profile";
 import Alerts from "./Alerts";
 import Revenue from "./Revenue";
 import ToDoListComponent from "./ToDoListComponent";
 
-const DashboardPage = ({ employeeID, employeeData }) => {
+const DashboardPage = ({ employeeData }) => {
     
     useEffect(() => {
         document.title = "Green Square - Dashboard";
@@ -29,6 +30,10 @@ const DashboardPage = ({ employeeID, employeeData }) => {
             </BottomContainer>
         </DashboardContainer>
     );
+};
+
+DashboardPage.propTypes = {
+    employeeData: PropTypes.array.isRequired,
 };
 
 export default DashboardPage;

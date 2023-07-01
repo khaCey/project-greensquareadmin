@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { EmployeeDataContext } from '../contexts/EmployeeDataContext'; // import the context
@@ -15,7 +15,6 @@ const ProfileBanner = styled.div`
 `;
 
 const Content = styled.div`
-  outline: 1px solid white;
   width: 18vw;
   padding-top: 1em;
 `;

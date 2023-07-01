@@ -1,55 +1,11 @@
 import axios from 'axios';
-import styled from 'styled-components';
 import Loader from './Loader';
+import PropTypes from 'prop-types';
+import { LoginWrapper, Form, Input, Button } from './LoginStyledComponents'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
 const loadingTime = 1500;
-
-const LoginWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: #212529;
-  color: #8B8E90;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 1;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin: 10px;
-  border-radius: 5px;
-  border: 1px solid #BDCDD6;
-  width: 300px;
-  background-color: #2B2F33;
-  color: white;
-  &:focus {
-    outline: 2px solid #BDCDD6;
-  }
-`;
-
-const Button = styled.button`
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 16px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px;
-  cursor: pointer;
-`;
 
 const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, startSession }) => {
   const handleSubmit = async (e) => {
@@ -137,6 +93,14 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
     </LoginWrapper>
   );
   
+};
+
+Login.propTypes = {
+    setIsAuthenticated: PropTypes.func.isRequired,
+    setEmployeeData: PropTypes.func.isRequired,
+    setLoading: PropTypes.func.isRequired,
+    loading: PropTypes.bool.isRequired,
+    startSession: PropTypes.func.isRequired,
 };
 
 export default Login;

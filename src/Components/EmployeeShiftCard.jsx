@@ -1,4 +1,4 @@
-import React from 'react';
+import PropTypes from 'prop-types';
 import { ShiftCard as ShiftCardStyled, ShiftClock, ShiftDate, ShiftCardContainer, ShiftBreak } from './StyledComponents';
 
 export const ShiftCard = ({ shifts }) => (
@@ -43,3 +43,6 @@ export const ShiftCard = ({ shifts }) => (
     </ShiftCardContainer>
 );
 
+ShiftCard.propTypes = {
+    shifts: PropTypes.array.isRequired,
+};

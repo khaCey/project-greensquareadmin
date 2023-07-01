@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { EmployeePageContainer, UpperContainer, PageName, BottomContainer, InnerBottomContainer, EmployeeList, EmployeeCard as EmployeeCardLabel, EmployeeHeader, EmployeeName, EmployeeNumber, EmployeeDays, EmployeeHours, Modal, Overlay } from './StyledComponents'; // import the relevant styled components
 import { EmployeeCard } from './EmployeeCard';
 import { AddEmployeeButton } from './EmployeeAddEmployeeButton';
@@ -11,7 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const EmployeePage = ({ employeeData }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [employees, setEmployees] = useState([]);
-    const [selectedEmployee, setSelectedEmployee] = useState(null);
     const [employeeRecords, setEmployeeRecords] = useState(null);
     const [records, setRecords] = useState([]);
     const [shifts, setShifts] = useState([]);
@@ -44,7 +44,6 @@ const EmployeePage = ({ employeeData }) => {
     };
     
     const handleSelect = (employee) => {
-        setSelectedEmployee(employee.employeeID);
         setEmployeeRecords(records[employee.employeeID]);
         setShowModal(true);
     };
@@ -190,6 +189,10 @@ const EmployeePage = ({ employeeData }) => {
         }
     </EmployeePageContainer>
   );  
+};
+
+EmployeePage.propTypes = {
+    employeeData: PropTypes.array.isRequired,
 };
 
 export default EmployeePage;
