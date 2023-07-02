@@ -316,6 +316,9 @@ export const NavListItem = styled.li`
       ? 'linear-gradient(90deg, rgba(253,65,60,0.25) 0%, rgba(43,47,51,1) 80%, rgba(43,47,51,1) 100%)'
       : ''};
   border-right: ${(props) => (props.selected ? '3px solid #fd413c' : '')};
+  &:hover{
+    background-color: #3d434b;
+  }
   &.default:hover{
     background: linear-gradient(90deg, rgba(253,65,60,0.25) 0%, rgba(43,47,51,1) 80%, rgba(43,47,51,1) 100%);
     color: #FD413C;
@@ -336,9 +339,6 @@ export const NavHideButton = styled.label`
   align-items: center;
   justify-content: right;
   cursor: pointer;
-  :hover{
-    background-color: #3d434b;
-  }
 `;
 
 export const NavLabel = styled(motion.label)`

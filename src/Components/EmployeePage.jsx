@@ -5,6 +5,7 @@ import { EmployeePageContainer, UpperContainer, PageName, BottomContainer, Inner
 import { EmployeeCard } from './EmployeeCard';
 import { AddEmployeeButton } from './EmployeeAddEmployeeButton';
 import { ShiftCard } from './EmployeeShiftCard';
+import { RegisterCard } from './EmployeeRegisterCard'
 import { LoadingSpinner } from './LoadingSpinner';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -16,6 +17,7 @@ const EmployeePage = ({ employeeData }) => {
     const [records, setRecords] = useState([]);
     const [shifts, setShifts] = useState([]);
     const [showModal, setShowModal] = useState(false);
+    const [showRegister, setShowRegister] = useState(false);
     const isAdmin = employeeData[0].privileges === 'admin';
     const modalRef = useRef();
 
@@ -29,20 +31,31 @@ const EmployeePage = ({ employeeData }) => {
   
     const calculateHoursWorked = (records) => {
         if (!records) {
-            return 0;  // return a default value when no records
+            return '0h 0m';  // return a default value when no records
         }
+
         let totalHoursWorked = 0;
-        for (let i = 0; i < records.length; i += 2) {
+        for (let i = 0; i < records.length - 1; i += 2) {  // Process pairs of records
             const clockInTime = new Date(records[i].time);
-            const clockOutTime = new Date(records[i + 1]?.time);
-            if (clockOutTime) {
-                const hoursWorked = (clockOutTime - clockInTime) / (1000 * 60 * 60);
-                totalHoursWorked += hoursWorked;
-            }
+            const clockOutTime = new Date(records[i + 1].time);
+            const hoursWorked = (clockOutTime - clockInTime) / (1000 * 60 * 60);
+            totalHoursWorked += hoursWorked;
         }
-        return totalHoursWorked.toFixed(2);
+
+        // If the last record is a 'clockIn', the employee is still working, so add the time until now
+        if (records.length % 2 !== 0) {
+            const lastClockInTime = new Date(records[records.length - 1].time);
+            const hoursWorked = (new Date() - lastClockInTime) / (1000 * 60 * 60);
+            totalHoursWorked += hoursWorked;
+        }
+
+        // Convert decimal hours to hours and minutes
+        const hours = Math.floor(totalHoursWorked);
+        const minutes = Math.round((totalHoursWorked - hours) * 60);
+
+        return `${hours}h ${minutes}m`;
     };
-    
+
     const handleSelect = (employee) => {
         setEmployeeRecords(records[employee.employeeID]);
         setShowModal(true);
@@ -66,6 +79,7 @@ const EmployeePage = ({ employeeData }) => {
         function handleClickOutside(event) {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
                 setShowModal(false);
+                setShowRegister(false);
             }
         }
   
@@ -156,7 +170,7 @@ const EmployeePage = ({ employeeData }) => {
         <BottomContainer>
             <InnerBottomContainer>
                 {isLoading && <LoadingSpinner />}
-                {isAdmin && <AddEmployeeButton showModal={setShowModal} />}
+                {isAdmin && <AddEmployeeButton showModal={setShowModal} showRegister={setShowRegister}  />}
                 <EmployeeList>
                     <EmployeeCardLabel className='label'>
                         <EmployeeHeader>
@@ -183,7 +197,11 @@ const EmployeePage = ({ employeeData }) => {
             <>
                 <Overlay/>
                 <Modal ref={modalRef}>
-                    <ShiftCard shifts={shifts} />
+                    {showRegister ? 
+                        <RegisterCard/>
+                        :
+                        <ShiftCard shifts={shifts} />
+                    }
                 </Modal>
             </>
         }

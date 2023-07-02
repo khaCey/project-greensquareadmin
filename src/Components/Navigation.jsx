@@ -40,9 +40,9 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     </NavHideButton>
                 </NavListItem>
                 <NavListItem
-                className="default"
-                selected={selected === 'dashboard'}
-                onClick={() => handleSelect('dashboard')}
+                    className="default"
+                    selected={selected === 'dashboard'}
+                    onClick={() => handleSelect('dashboard')}
                 >
                     <Speedometer2 size={25} />
                     <AnimatePresence>
@@ -59,9 +59,9 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     </AnimatePresence>
                 </NavListItem>
                 <NavListItem
-                className="default"
-                selected={selected === 'tasks'}
-                onClick={() => handleSelect('tasks')}
+                    className="default"
+                    selected={selected === 'tasks'}
+                    onClick={() => handleSelect('tasks')}
                 >
                     <CardChecklist size={25} />
                     <AnimatePresence>
@@ -78,9 +78,9 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     </AnimatePresence>
                 </NavListItem>
                 <NavListItem
-                className="default"
-                selected={selected === 'calendar'}
-                onClick={() => handleSelect('calendar')}
+                    className="default"
+                    selected={selected === 'calendar'}
+                    onClick={() => handleSelect('calendar')}
                 >
                     <Calendar2DayFill size={25} />
                     <AnimatePresence>
@@ -97,9 +97,9 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     </AnimatePresence>
                 </NavListItem>
                 <NavListItem
-                className="default"
-                selected={selected === 'students'}
-                onClick={() => handleSelect('students')}
+                    className="default"
+                    selected={selected === 'students'}
+                    onClick={() => handleSelect('students')}
                 >
                     <PersonBadgeFill size={25} />
                     <AnimatePresence>
@@ -118,9 +118,9 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                 {employeeData[0].privileges === 'admin' && (
                 <>
                     <NavListItem
-                    className="default"
-                    selected={selected === 'employees'}
-                    onClick={() => handleSelect('employees')}
+                        className="default"
+                        selected={selected === 'employees'}
+                        onClick={() => handleSelect('employees')}
                     >
                     <PeopleFill size={25} />
                     <AnimatePresence>
@@ -145,10 +145,10 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                 <AnimatePresence>
                     {!hide && (
                         <NavLabel
-                        initial={{ opacity: 0, x: -50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: -50 }}
-                        transition={{ duration: 0.5 }}
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -50 }}
+                            transition={{ duration: 0.5 }}
                         >
                         <NavName>LOGOUT</NavName>
                         </NavLabel>

@@ -11,7 +11,7 @@ import Loader from './Components/Loader';
 import './style.css';
 
 const loadingTime = 1500;
-const sessionTime = 1;//time in minutes
+const sessionTime = 15;//time in minutes
 
 const App = () => {
   const [employeeData, setEmployeeData] = useContext(EmployeeDataContext);
