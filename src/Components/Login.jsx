@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import axios from 'axios';
 import Loader from './Loader';
 import PropTypes from 'prop-types';
@@ -73,20 +74,26 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
       });
   };
 
+  useEffect(() => {
+    document.title = "Green Square - Login";
+}, []);
+
   return (
     <LoginWrapper>
       <ToastContainer />
       {loading && <Loader />}
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} >
         <Input
           name="employeeID"
           type="text"
           placeholder="Employee Name / Number"
+          autoComplete="off"
         />
         <Input
           name="password"
           type="password"
           placeholder="Password"
+          autoComplete="off"
         />
         <Button type="submit">Login</Button>
       </Form>

@@ -1,17 +1,8 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AnimatePresence } from 'framer-motion';
-import {
-    Speedometer2,
-    CardChecklist,
-    Calendar2DayFill,
-    BoxArrowLeft,
-    ListUl,
-    ThreeDotsVertical,
-    PeopleFill,
-    PersonBadgeFill
-  } from 'react-bootstrap-icons';
-import { Nav, NavContainer, NavList, NavListItem, NavHideButton, NavLabel, NavName } from './StyledComponents';
+import { Speedometer2, CardChecklist, Calendar2DayFill, BoxArrowLeft, ListUl, ThreeDotsVertical, PeopleFill, PersonBadgeFill } from 'react-bootstrap-icons';
+import { Nav, Container, List, ListItem, HideButton, Label, Name } from './NavigationStyledComponents';
 
 const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
     const [hide, setHide] = useState(false);
@@ -32,14 +23,14 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
         animate={{ width: hide ? '3em' : '15em' }}
         transition={{ duration: 1.2 }}
         >
-            <NavList>
-            <NavContainer>
-                <NavListItem>
-                    <NavHideButton onClick={handleHide}>
+            <List>
+            <Container>
+                <ListItem>
+                    <HideButton onClick={handleHide}>
                         {hide ? <ListUl size={20} /> : <ThreeDotsVertical size={20} />}
-                    </NavHideButton>
-                </NavListItem>
-                <NavListItem
+                    </HideButton>
+                </ListItem>
+                <ListItem
                     className="default"
                     selected={selected === 'dashboard'}
                     onClick={() => handleSelect('dashboard')}
@@ -47,18 +38,18 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     <Speedometer2 size={25} />
                     <AnimatePresence>
                         {!hide && (
-                            <NavLabel
+                            <Label
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <NavName>DASHBOARD</NavName>
-                            </NavLabel>
+                                <Name>DASHBOARD</Name>
+                            </Label>
                         )}
                     </AnimatePresence>
-                </NavListItem>
-                <NavListItem
+                </ListItem>
+                <ListItem
                     className="default"
                     selected={selected === 'tasks'}
                     onClick={() => handleSelect('tasks')}
@@ -66,18 +57,18 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     <CardChecklist size={25} />
                     <AnimatePresence>
                         {!hide && (
-                            <NavLabel
+                            <Label
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <NavName>TASKS</NavName>
-                            </NavLabel>
+                                <Name>TASKS</Name>
+                            </Label>
                         )}
                     </AnimatePresence>
-                </NavListItem>
-                <NavListItem
+                </ListItem>
+                <ListItem
                     className="default"
                     selected={selected === 'calendar'}
                     onClick={() => handleSelect('calendar')}
@@ -85,18 +76,18 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     <Calendar2DayFill size={25} />
                     <AnimatePresence>
                         {!hide && (
-                            <NavLabel
+                            <Label
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <NavName>CALENDAR</NavName>
-                            </NavLabel>
+                                <Name>CALENDAR</Name>
+                            </Label>
                         )}
                     </AnimatePresence>
-                </NavListItem>
-                <NavListItem
+                </ListItem>
+                <ListItem
                     className="default"
                     selected={selected === 'students'}
                     onClick={() => handleSelect('students')}
@@ -104,20 +95,20 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     <PersonBadgeFill size={25} />
                     <AnimatePresence>
                         {!hide && (
-                            <NavLabel
+                            <Label
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <NavName>STUDENTS</NavName>
-                            </NavLabel>
+                                <Name>STUDENTS</Name>
+                            </Label>
                         )}
                     </AnimatePresence>
-                </NavListItem>
-                {employeeData[0].privileges === 'admin' && (
-                <>
-                    <NavListItem
+                </ListItem>
+                {(employeeData[0].privileges === 'admin' || employeeData[0].privileges === 'manager') && (
+                      <>
+                    <ListItem
                         className="default"
                         selected={selected === 'employees'}
                         onClick={() => handleSelect('employees')}
@@ -125,38 +116,38 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
                     <PeopleFill size={25} />
                     <AnimatePresence>
                         {!hide && (
-                            <NavLabel
+                            <Label
                                 initial={{ opacity: 0, x: -50 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 exit={{ opacity: 0, x: -50 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <NavName>EMPLOYEES</NavName>
-                            </NavLabel>
+                                <Name>EMPLOYEES</Name>
+                            </Label>
                         )}
                     </AnimatePresence>
-                    </NavListItem>
+                    </ListItem>
                 </>
                 
                 )}
-            </NavContainer>
-            <NavListItem className="logout" onClick={handleLogout}>
+            </Container>
+            <ListItem className="logout" onClick={handleLogout}>
                 <BoxArrowLeft size={25} />
                 <AnimatePresence>
                     {!hide && (
-                        <NavLabel
+                        <Label
                             initial={{ opacity: 0, x: -50 }}
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -50 }}
                             transition={{ duration: 0.5 }}
                         >
-                        <NavName>LOGOUT</NavName>
-                        </NavLabel>
+                        <Name>LOGOUT</Name>
+                        </Label>
                     )}
                 </AnimatePresence>
-            </NavListItem>
+            </ListItem>
             {/* Similar code for other list items */}
-            </NavList>
+            </List>
         </Nav>
     )
 }
