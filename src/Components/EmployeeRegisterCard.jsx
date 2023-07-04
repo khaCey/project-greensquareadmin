@@ -48,6 +48,7 @@ export const RegisterCard = () => {
                 // Check if the request was successful
                 if (response.status === 200) {
                     toast.success('Employee registered successfully');
+                    setShowConfirm(false);
                 } else {
                     toast.error('Employee registration failed');
                 }

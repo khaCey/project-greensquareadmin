@@ -177,38 +177,6 @@ export const RecordCard = styled.div`
     cursor: pointer;
 `;
 
-export const ShiftCardContainer = styled.div`
-`;
-
-export const ShiftCard = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    color: white;
-    &:not(.label){
-        border-top: 1px solid #3d3f51;
-        cursor: pointer;
-    }
-        &:not(.label):hover {
-        background-color: #3d434b;
-    }
-`;
-
-export const ShiftDate = styled.div`
-    width: 20em;
-`;
-
-export const ShiftClock = styled.div`
-    width: 20em;
-`;
-
-export const ShiftBreak = styled.div`
-    width: 20em;
-`;
-
 export const DashboardUpperContainer = styled.div`
     margin-top: 1em;
     margin-bottom: 1em;

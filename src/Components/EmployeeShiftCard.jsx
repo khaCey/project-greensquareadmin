@@ -1,5 +1,11 @@
 import PropTypes from 'prop-types';
-import { ShiftCard as ShiftCardStyled, ShiftClock, ShiftDate, ShiftCardContainer, ShiftBreak } from './StyledComponents';
+import { ShiftCard as ShiftCardStyled, ShiftClock, ShiftDate, ShiftCardContainer, ShiftTotal, ShiftBreak } from './EmployeePageStyledComponents';
+
+function decimalToHrsMins(time) {
+    const hrs = Math.floor(time);
+    const mins = Math.round((time - hrs) * 60);
+    return `${hrs} hrs ${mins} mins`;
+}
 
 export const ShiftCard = ({ shifts }) => (
     <ShiftCardContainer>
@@ -7,6 +13,7 @@ export const ShiftCard = ({ shifts }) => (
             <ShiftDate>Date</ShiftDate>
             <ShiftClock>Clock In</ShiftClock>
             <ShiftClock>Clock Out</ShiftClock>
+            <ShiftTotal>Total</ShiftTotal>
             <ShiftBreak>Break</ShiftBreak>
         </ShiftCardStyled>
         {shifts.map((shift, index) => {
@@ -14,28 +21,36 @@ export const ShiftCard = ({ shifts }) => (
             let totalBreakTime = 0;
             let clockInTime = '';
             let clockOutTime = '';
-            for (let i = 0; i < shift.length; i++) {
-                if (shift[i].type === 'clock-in') {
-                    clockInTime = (new Date(shift[i].time)).toLocaleTimeString();
-                } else if (shift[i].type === 'clock-out') {
-                    clockOutTime = (new Date(shift[i].time)).toLocaleTimeString();
+
+            // Get first clock in and last clock out
+            shift.forEach((s) => {
+                if (s.type === 'clock-in' && !clockInTime) {
+                    clockInTime = new Date(s.time);
+                } else if (s.type === 'clock-out') {
+                    clockOutTime = new Date(s.time);
                 }
-            }
+            });
 
             for (let i = 2; i < shift.length; i += 2) {
                 const breakStart = new Date(shift[i - 1].time);
                 const breakEnd = new Date(shift[i].time);
                 totalBreakTime += breakEnd - breakStart;
             }
-            totalBreakTime = (totalBreakTime / (1000 * 60 * 60)).toFixed(2); // Convert to hours
+            totalBreakTime = totalBreakTime / (1000 * 60 * 60); // Convert to hours
+
+            const totalHoursWorked = (clockOutTime - clockInTime) / (1000 * 60 * 60); // Convert to hours
+            const workedHours = totalHoursWorked - totalBreakTime;
 
             return (
                 <ShiftCardStyled key={index}>
-                    <ShiftDate>{(new Date(shift[0].time)).toDateString()}</ShiftDate>
-                    <ShiftClock>{clockInTime}</ShiftClock>
-                    <ShiftClock>{clockOutTime}</ShiftClock>
+                    <ShiftDate>{clockInTime.toDateString()}</ShiftDate>
+                    <ShiftClock>{clockInTime.toLocaleTimeString()}</ShiftClock>
+                    <ShiftClock>{clockOutTime.toLocaleTimeString()}</ShiftClock>
+                    <ShiftTotal>
+                        {decimalToHrsMins(workedHours)}
+                    </ShiftTotal>
                     <ShiftBreak>
-                        {totalBreakTime} hrs
+                        {decimalToHrsMins(totalBreakTime)}
                     </ShiftBreak>
                 </ShiftCardStyled>
             );
