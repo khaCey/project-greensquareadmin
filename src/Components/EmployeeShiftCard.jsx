@@ -26,10 +26,21 @@ export const ShiftCard = ({ shifts }) => (
             shift.forEach((s) => {
                 if (s.type === 'clock-in' && !clockInTime) {
                     clockInTime = new Date(s.time);
+                    if (isNaN(clockInTime)) {
+                        // handle invalid date here
+                        console.error('Invalid clock-in time:', s.time);
+                        clockInTime = null;
+                    }
                 } else if (s.type === 'clock-out') {
                     clockOutTime = new Date(s.time);
+                    if (isNaN(clockOutTime)) {
+                        // handle invalid date here
+                        console.error('Invalid clock-out time:', s.time);
+                        clockOutTime = null;
+                    }
                 }
             });
+
 
             for (let i = 2; i < shift.length; i += 2) {
                 const breakStart = new Date(shift[i - 1].time);
