@@ -34,30 +34,44 @@ const EmployeePage = ({ employeeData }) => {
 
     const calculateHoursWorked = (records) => {
         if (!records) {
-            return '0h 0m';  // return a default value when no records
+          return '0h 0m';  // return a default value when no records
         }
-
+  
         let totalHoursWorked = 0;
+  
         for (let i = 0; i < records.length - 1; i += 2) {  // Process pairs of records
-            const clockInTime = new Date(records[i].time);
-            const clockOutTime = new Date(records[i + 1].time);
-            const hoursWorked = (clockOutTime - clockInTime) / (1000 * 60 * 60);
-            totalHoursWorked += hoursWorked;
+          const clockInTime = new Date(records[i].time);
+          const clockOutTime = new Date(records[i + 1].time);
+  
+          // Check if clockInTime and clockOutTime are valid Date objects
+          if (
+            isNaN(clockInTime.getTime()) ||
+            isNaN(clockOutTime.getTime())
+          ) {
+            continue; // Skip invalid records
+          }
+  
+          const hoursWorked = (clockOutTime - clockInTime) / (1000 * 60 * 60);
+          totalHoursWorked += hoursWorked;
         }
-
+  
         // If the last record is a 'clockIn', the employee is still working, so add the time until now
         if (records.length % 2 !== 0) {
-            const lastClockInTime = new Date(records[records.length - 1].time);
+          const lastClockInTime = new Date(records[records.length - 1].time);
+  
+          // Check if lastClockInTime is a valid Date object
+          if (!isNaN(lastClockInTime.getTime())) {
             const hoursWorked = (new Date() - lastClockInTime) / (1000 * 60 * 60);
             totalHoursWorked += hoursWorked;
+          }
         }
-
+  
         // Convert decimal hours to hours and minutes
         const hours = Math.floor(totalHoursWorked);
         const minutes = Math.round((totalHoursWorked - hours) * 60);
-
+  
         return `${hours}h ${minutes}m`;
-    };
+      };
 
     const handleSelect = (employee) => {
         setEmployeeRecords(records[employee.employeeID]);

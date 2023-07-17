@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AnimatePresence } from 'framer-motion';
-import { Speedometer2, CardChecklist, Calendar2DayFill, BoxArrowLeft, ListUl, PeopleFill, PersonBadgeFill, LayoutSidebar, LayoutSplit } from 'react-bootstrap-icons';
+import { Speedometer2, CardChecklist, Calendar2DayFill, BoxArrowLeft, PeopleFill, PersonBadgeFill, LayoutSidebar, LayoutSplit } from 'react-bootstrap-icons';
 import { Nav, Container, List, ListItem, HideButton, Label, Name } from './NavigationStyledComponents';
 
 const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
