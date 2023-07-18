@@ -237,3 +237,31 @@ export const ShiftBreak = styled.div`
 export const ShiftTotal = styled.div`
     width: 20em;
 `;
+
+export const Button = styled.button`
+    background: none;
+    border: none;
+`;
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 0.5em;
+    padding-right: 5em;
+    margin: 1em;
+    margin-bottom: 0;
+    color: white;
+`;
+
+export const CurrentMonth = styled.h3`
+    width: 10em;
+    display: flex;
+    justify-content: center;
+`;
+
+export const EditModal = styled.div`
+    width: 50em;
+    height: 100em;
+    outline: 1px solid white;
+    z-index: 15;
+`;

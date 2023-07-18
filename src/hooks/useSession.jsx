@@ -4,12 +4,10 @@ export const useSession = (sessionLength, setIsAuthenticated, setEmployeeData, e
   const [lastActivity, setLastActivity] = useState(Date.now());
   const alertString = "You have been logged out!Please Login Again! "
   const startSession = useCallback(() => {
-    localStorage.setItem('isAuthenticated', 'true');
     setLastActivity(Date.now());
   }, []);
 
   const endSession = useCallback(() => {
-    localStorage.removeItem('isAuthenticated');
     setIsAuthenticated(false);
     setEmployeeData(null); // clear the employeeData
   }, [setIsAuthenticated, setEmployeeData]);
@@ -18,14 +16,6 @@ export const useSession = (sessionLength, setIsAuthenticated, setEmployeeData, e
     setLastActivity(Date.now());
   }, []);
 
-  // useEffect for checking saved session, runs only once
-  useEffect(() => {
-    const savedSession = localStorage.getItem('isAuthenticated');
-    if (savedSession) {
-      setIsAuthenticated(true);
-      startSession();
-    }
-  }, [setIsAuthenticated, startSession]);
 
   // Modified useEffect for checking session timeout and maintaining the session
   useEffect(() => {
@@ -37,19 +27,15 @@ export const useSession = (sessionLength, setIsAuthenticated, setEmployeeData, e
     }, 1000);
 
     window.addEventListener('mousemove', maintainSession);
-    window.addEventListener('mousedown', maintainSession);
     window.addEventListener('keypress', maintainSession);
     window.addEventListener('touchmove', maintainSession);
-    window.addEventListener('scroll', maintainSession);
 
     return () => {
       clearInterval(intervalId);
 
       window.removeEventListener('mousemove', maintainSession);
-      window.removeEventListener('mousedown', maintainSession);
       window.removeEventListener('keypress', maintainSession);
       window.removeEventListener('touchmove', maintainSession);
-      window.removeEventListener('scroll', maintainSession);
     };
   }, [maintainSession, endSession, lastActivity, sessionLength, employeeData, isAuthenticated]);
 

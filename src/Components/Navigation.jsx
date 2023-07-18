@@ -27,7 +27,7 @@ const Navigation = ({selected, setSelected, employeeData, logoutHandler}) => {
             <Container>
                 <ListItem>
                     <HideButton onClick={handleHide}>
-                        {hide ? <LayoutSidebar size={20} /> : <LayoutSplit size={20} />}
+                        {hide ? <LayoutSplit size={20} /> : <LayoutSidebar size={20} />}
                     </HideButton>
                 </ListItem>
                 <ListItem
