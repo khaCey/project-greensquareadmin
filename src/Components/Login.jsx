@@ -28,6 +28,7 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
   };
 
   const handleLogin = (employeeID, password) => {
+    console.log('Starting login process...'); // Debug log
     setLoading(true);
     axios
       .post(
@@ -41,14 +42,17 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
         }
       )
       .then((response) => {
-    
+        console.log('Login response:', response); // Debug log
+        
         if (response.data.success) {  // check if the login was successful
+          console.log('Login successful, fetching employee data...'); // Debug log
           // Fetch employee data after successful login
           axios
             .get(`${import.meta.env.VITE_APP_API_URL}employee/${employeeID}`, {
               headers: { 'x-api-key': import.meta.env.VITE_APP_API_KEY },
             })
             .then((response) => {
+              console.log('Employee data response:', response); // Debug log
               const employeeData = response.data;
               setEmployeeData(employeeData); // Save the employee data
               localStorage.setItem('employeeData', JSON.stringify(employeeData)); // Store employee data in localStorage
@@ -56,6 +60,7 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
                 setIsAuthenticated(true);
                 setLoading(false);
                 startSession(); // start the session when logging in
+                console.log('Session started and user authenticated.'); // Debug log
               }, loadingTime);
             })
             .catch((error) => {
@@ -64,11 +69,12 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
               toast.error('Error fetching employee data. Please try again later.');
             });
         } else {
+          console.log('Login failed:', response.data.message); // Debug log
           throw new Error('Login unsuccessful. Please check your credentials and try again.'); 
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.log('Error during login request:', error); // Debug log
         setLoading(false);
         toast.error('Login unsuccessful. Please check your credentials and try again.');
       });
@@ -76,7 +82,8 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
 
   useEffect(() => {
     document.title = "Green Square - Login";
-}, []);
+    console.log('Login component mounted.'); // Debug log
+  }, []);
 
   return (
     <LoginWrapper>
