@@ -6,3 +6,40 @@
   user-select: none;
 }
 
+.searchResultRow {
+  padding-left: 2.5em;
+  list-style-type: none;
+  padding: none;
+  margin: none;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.searchResultRow:hover {
+  background-color: aliceblue;
+  cursor: pointer;
+}
+
+.lastName {
+  flex: 15%;
+}
+
+.firstName {
+  flex: 25%;
+}
+
+.address {
+  flex: 20%;
+}
+
+.studentID {
+  flex: 10%
+}
+
+.addIcon {
+  margin: auto;
+}
+
+.font {
+  border: 1px solid red;
+}

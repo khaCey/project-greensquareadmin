@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { LoginWrapper, Form, Input, Button } from './LoginStyledComponents'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Banner from "./Banner";
 
 const loadingTime = 1500;
 
@@ -18,13 +19,33 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
       toast.error('Employee number and password are required.');
       return;
     }
-  
-    try {
-      await handleLogin(employeeID, password);
-    } catch (error) {
-      console.log(error);
-      toast.error('Login unsuccessful. Please check your credentials and try again.');
+
+    // Check for dev credentials
+    if (employeeID === 'dev' && password === 'dev') {
+      handleDevLogin().catch(error => {
+        console.error('Error during dev login:', error);
+        toast.error('Error during dev login. Please try again.');
+      });
+    } else {
+      try {
+        await handleLogin(employeeID, password);
+      } catch (error) {
+        console.log(error);
+        toast.error('Login unsuccessful. Please check your credentials and try again.');
+      }
     }
+  };
+
+  const handleDevLogin = async () => {
+    setLoading(true);
+    await new Promise(resolve => setTimeout(resolve, loadingTime));
+    const devData = [{ name: 'Developer', role: 'Admin', employeeID: 'dev' }];
+    setEmployeeData(devData);
+    localStorage.setItem('employeeData', JSON.stringify(devData));
+    setIsAuthenticated(true);
+    setLoading(false);
+    startSession();
+    toast.success('Logged in as Developer');
   };
 
   const handleLogin = (employeeID, password) => {
@@ -53,7 +74,7 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
             })
             .then((response) => {
               console.log('Employee data response:', response); // Debug log
-              const employeeData = response.data;
+              const employeeData = [response.data]; // Ensure employeeData is an array
               setEmployeeData(employeeData); // Save the employee data
               localStorage.setItem('employeeData', JSON.stringify(employeeData)); // Store employee data in localStorage
               setTimeout(() => {
@@ -87,6 +108,8 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
 
   return (
     <LoginWrapper>
+      
+      <Banner> The Username is : dev and Password is : dev </Banner>
       <ToastContainer />
       {loading && <Loader />}
       <Form onSubmit={handleSubmit} >
@@ -106,7 +129,6 @@ const Login = ({ setIsAuthenticated, setEmployeeData, setLoading, loading, start
       </Form>
     </LoginWrapper>
   );
-  
 };
 
 Login.propTypes = {

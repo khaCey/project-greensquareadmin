@@ -1,10 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import { EmployeeDataProvider } from './contexts/EmployeeDataContext';
 import App from './App';
 
-ReactDOM.render(
-  <React.StrictMode>
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
+  <EmployeeDataProvider>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </EmployeeDataProvider>
 );

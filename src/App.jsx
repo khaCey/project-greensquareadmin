@@ -11,14 +11,20 @@ import Loader from './Components/Loader';
 import './style.css';
 
 const loadingTime = 1500;
-const sessionTime = 15;//time in minutes
+const sessionTime = 15; // time in minutes
 
 const App = () => {
   const [employeeData, setEmployeeData] = useContext(EmployeeDataContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const { startSession, endSession } = useSession(sessionTime * 60 * 1000, setIsAuthenticated, setEmployeeData, employeeData, isAuthenticated);
+  const { startSession, endSession } = useSession(
+    sessionTime * 60 * 1000,
+    setIsAuthenticated,
+    setEmployeeData,
+    employeeData,
+    isAuthenticated
+  );
 
   useEffect(() => {
     const storedEmployeeData = localStorage.getItem('employeeData');
@@ -48,11 +54,8 @@ const App = () => {
           startSession={startSession}
         />
       ) : (
-        <LandingPage 
-          logoutHandler={handleLogout} 
-          employeeData={employeeData}  
-        />
-      )} 
+        <LandingPage logoutHandler={handleLogout} employeeData={employeeData} />
+      )}
     </Container>
   );
 };
