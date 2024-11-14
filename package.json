@@ -14,7 +14,7 @@
     "@vitejs/plugin-react": "^4.0.1",
     "axios": "^1.4.0",
     "framer-motion": "^10.12.17",
-    "node": "18.20.3",
+    "node": "20.13.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-bootstrap-icons": "^1.10.3",
